@@ -1,0 +1,37 @@
+
+{% for intf in data['interfaces'] %}
+set interface {{intf['name']}} state on
+set interface {{intf['name']}} ipv4-address {{intf['ipv4-address']}} subnet-mask {{intf['subnet-mask']}}
+{%- endfor %}
+
+{# WAN Interfaces Config #}
+{%- for intf in data['wan'] -%}
+add internet-connection interface {{intf['name']}} type static ipv4-address {{intf['ipv4-address']}} subnet-mask {{intf['subnet-mask']}} default-gw {{intf['gateway']}}
+{% endfor %}
+
+{# HA Port config #}
+{%- for intf in data['ha'] -%}
+set interface {{intf.name}} state on
+set interface {{intf['name']}} ipv4-address {{intf['ipv4-address']}} subnet-mask {{intf['subnet-mask']}}
+{% endfor -%}
+
+{# Vlan config #}
+{%- for intf in data['vlan'] -%}
+add interface LAN1 vlan {{intf['id']}} ipv4-address {{intf['ipv4-address']}} mask-length {{intf['subnet-mask']}}
+{% endfor %}
+
+{# Mgmt config #}
+{%- if data['mgmt'][0]['ipv4-address'] -%}
+    add internet-connection name {{data['mgmt'][0]['name']}} interface WAN type static ipv4-address {{data['mgmt'][0]['ipv4-address']}} subnet-mask {{data['mgmt'][0]['subnet-mask']}} default-gw {{data['mgmt'][0]['gateway']}}
+{% else %}
+    {%- if data['setup'] == 'HA' -%}
+        {%- if data['config_type'] == 'Primary' -%}
+            add internet-connection name Mgmt interface WAN type static ipv4-address 169.254.3.1 subnet-mask 255.255.255.248 default-gw 169.254.3.3
+        {%- else -%}
+            add internet-connection name Mgmt interface WAN type static ipv4-address 169.254.3.2 subnet-mask 255.255.255.248 default-gw 169.254.3.3
+        {% endif %}
+    {%- else -%}
+        add internet-connection name Mgmt interface WAN type static ipv4-address 169.254.3.1 subnet-mask 255.255.255.248 default-gw 169.254.3.3
+    {% endif %}
+{% endif %}
+

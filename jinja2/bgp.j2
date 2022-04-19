@@ -1,0 +1,38 @@
+{# BGP towards ANAP VNET0 #}
+set as {{bgp_asn}}
+set bgp external remote-as 56278 on
+set bgp external remote-as 56278 peer {{lan2_gateway}} on
+set bgp external remote-as 56278 peer {{lan2_gateway}} route-refresh on
+set routemap BGP-IN id 1 on
+set routemap BGP-IN id 1 allow
+set routemap BGP-OUT id 2 on
+{% if data['redis_bgp'] == True -%}
+set routemap BGP-OUT id 2 match protocol bgp
+{% endif %}
+{%- if data['redis_static'] == True -%}
+set routemap BGP-OUT id 2 match protocol static
+{% if data["lan_routes"]|length > 0 %}
+{%- for network in data["lan_routes"] -%}
+set routemap BGP-OUT id 2 match network {{network}} all
+{% endfor %}
+{% endif %}
+{% endif %}
+{%- if data['redis_ospf'] == True -%}
+set routemap BGP-OUT id 2 match protocol ospf
+{% endif -%}
+set routemap BGP-OUT id 2 allow
+set bgp external remote-as 56278 export-routemap BGP-OUT preference 1 on
+set bgp external remote-as 56278 import-routemap BGP-IN preference 1 on
+
+{# BGP towards Firewall LAN #}
+{% if data["bgp_lan"]|length > 0 %}
+set bgp external remote-as {{data["bgp_lan"][0]["peer_asn"]}} on
+set bgp external remote-as {{data["bgp_lan"][0]["peer_asn"]}} peer {{data["bgp_lan"][0]["peer_ip"]}} on
+set bgp external remote-as {{data["bgp_lan"][0]["peer_asn"]}} peer {{data["bgp_lan"][0]["peer_ip"]}} route-refresh on
+set routemap BGP-IN-LAN id 1 on
+set routemap BGP-IN-LAN id 1 allow
+set routemap BGP-OUT-LAN id 2 on
+set routemap BGP-OUT-LAN id 2 allow
+set bgp external remote-as {{data["bgp_lan"][0]["peer_asn"]}} export-routemap BGP-OUT-LAN preference 1 on
+set bgp external remote-as {{data["bgp_lan"][0]["peer_asn"]}} import-routemap BGP-IN-LAN preference 1 on
+{% endif %}

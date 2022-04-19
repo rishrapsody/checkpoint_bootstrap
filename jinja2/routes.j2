@@ -1,0 +1,4 @@
+{# Lan routes #}
+{% for route in data['lan_routes'] -%}
+add static-route destination {{route}} nexthop gateway ipv4-address {{lan1_gateway}}
+{% endfor %}

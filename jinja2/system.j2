@@ -1,0 +1,54 @@
+{% if data['setup'] == 'HA' %}
+    {%- if data['config_type'] == 'Primary' -%}
+    set device-details hostname {{data['site']}}-FW01
+    {%- else -%}
+    set device-details hostname {{data['site']}}-FW02
+    {% endif %}
+{% else %}
+set device-details hostname {{['site']}}-FW
+{%- endif -%}
+
+{# Management Mode #}
+{#% if data['system']['management_mode'] == 'central' %#}
+set security-management mode centrally-managed
+{% if data['mdsm_logserver'] == '' %}
+set security-management local-override-mgmt-addr true mgmt-address {{data['mdsm']}} send-logs-to local-override-mgmt-addr
+{% else %}
+set security-management local-override-mgmt-addr true mgmt-address {{data['mdsm']}} send-logs-to local-override-log-server-addr addr {{data['mdsm_logserver']}}
+{% endif %}
+set sic_init password {{data['sic']}}
+add static-route destination {{data['mdsm']}}/32 nexthop gateway ipv4-address {{lan2_gateway}}
+{% if data['mdsm_logserver'] == '' %}
+connect security-management mgmt-addr {{data['mdsm']}} use-one-time-password true local-override-mgmt-addr true send-logs-to local-override-mgmt-addr
+{% else %}
+connect security-management mgmt-addr {{data['mdsm']}} use-one-time-password true local-override-mgmt-addr true send-logs-to local-override-log-server-addr addr {{data['mdsm_logserver']}}
+
+{% endif %}
+{#
+{% else -%}
+set security-management mode locally-managed
+{% endif %}
+#}
+
+{# Disable First time wizard #}
+set property first-time-wizard off
+
+{# DNS Config #}
+{% if data['dns1'] != "" and data['dns2'] != "" %}
+set dns primary ipv4-address {{data['dns1']}} secondary ipv4-address {{data['dns2']}}
+{% else -%}
+set dns primary ipv4-address 8.8.8.8 secondary ipv4-address 4.2.2.2
+{% endif %}
+
+{# Azure routes #}
+add static-route destination 192.168.253.5/32 nexthop gateway ipv4-address {{lan2_gateway}}
+add static-route destination 192.168.254.5/32 nexthop gateway ipv4-address {{lan2_gateway}}
+
+{# SNMP config #}
+set snmp agent on
+set snmp agent-version any agent on
+set snmp community {{data['snmp']['snmp_community']}}
+add snmp user {{data['snmp']['snmp_user']}} security-level authPriv auth-pass-type SHA1 auth-pass-phrase {{data['snmp']['snmp_auth_pass']}} privacy-pass-type AES privacy-pass-phrase {{data['snmp']['snmp_priv_pass']}}
+add snmp traps-receiver 198.18.253.5 version v3 user {{data['snmp']['snmp_user']}}
+add snmp traps-receiver 198.18.254.5 version v3 user {{data['snmp']['snmp_user']}}
+set snmp traps enable
