@@ -1,0 +1,47 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #e8f1f9; }
+	</style>
+{% endblock %}
+{% block title %}
+CheckPoint Bootstrap Generator
+{% endblock %}
+{% block content %}
+    <div class="container">
+    <body>
+    <hr>
+    <br>
+        <h1> Thank you for Submitting Firewall details </h1>
+    <br>
+        <a style="font-size:20px">Click to Download Firewall Configuration commands </a>
+        <a href="{{url_for('.download_file')}}" download> Click Me!! </a>
+
+    <br>
+    </br>
+        <a style="font-size:20px">Click to Download Bootstrap Image </a>
+        <a href="{{url_for('.download_bootstrap')}}" download> Click Me!! </a>
+    <hr>
+    <br>
+    <br>
+            <a href="{{url_for('.index')}}"> <-- Go Back to HomePage </a>
+
+    </body>
+    </div>
+<style>
+footer {
+  position: relative;
+  bottom: -350px;
+  text-align: center;
+  padding: 3px;
+  background-image: linear-gradient(to right,#643bba,#00afaa);
+  color: white;
+}
+</style>
+<footer>
+  <p>Creater : Rishabh Parihar<br>
+  <a style="color:black;" href="mailto:nsi.all@aryaka.com">Powered by NSI</a></p>
+</footer>
+{% endblock %}

@@ -1,0 +1,497 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block styles %}
+{{ super() }}
+	<style>
+		body { background: #e8f1f9; }
+	</style>
+{% endblock %}
+{% block title %}
+
+CheckPoint Bootstrap Generator
+
+{% endblock %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<header><img src="https://cdn-bbian.nitrocdn.com/XKJOdyGxDowApPGzDsFKwfcKfdRZpLjJ/assets/static/optimized/rev-e630e91/wp-content/themes/aryaka-2019/img/aryaka-logo.svg" class="mainlogo" ><h2><center>Your CheckPoint Bootstrap Generator</center></h2></header>
+
+<div class="container">
+  <h3>Enter your Firewall details</h3>
+  <hr>
+
+
+  <form action="" method="post" class="form"  role="form" enctype="multipart/form-data">
+    {{ form.csrf_token() }}
+
+    <div class="row">
+      <div class="form-group col-md-2">
+        {% if form.site.errors %}
+          {{ wtf.form_field(form.site, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.site.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+        {% else %}
+          {{ wtf.form_field(form.site, class='form-control form-control-sm') }}
+        {% endif %}
+      </div>
+      <div class="form-group col-md-2">
+      {% if form.mdsm.errors %}
+          {{ wtf.form_field(form.mdsm, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.mdsm.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.mdsm, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-2">
+        {% if form.mdsm_logserver.errors %}
+          {{ wtf.form_field(form.mdsm_logserver, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.mdsm_logserver.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.mdsm_logserver, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-2">
+        {% if form.sic.errors %}
+          {{ wtf.form_field(form.sic, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.sic.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.sic, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-2">
+        {% if form.dns1.errors %}
+          {{ wtf.form_field(form.dns1, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.dns1.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.dns1, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-2">
+        {% if form.dns2.errors %}
+          {{ wtf.form_field(form.dns2, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.dns2.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.dns2, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-md-3">
+        {% if form.lan1_ip.errors %}
+          {{ wtf.form_field(form.lan1_ip, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan1_ip.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan1_ip, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.lan1_mask.errors %}
+          {{ wtf.form_field(form.lan1_mask, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan1_mask.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan1_mask, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.lan1_gateway.errors %}
+          {{ wtf.form_field(form.lan1_gateway, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan1_gateway.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan1_gateway, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {{wtf.form_field(form.routes_file, type='file', class='form-control form-control-sm')}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-3">
+        {% if form.lan2_ip.errors %}
+          {{ wtf.form_field(form.lan2_ip, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan2_ip.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan2_ip, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.lan2_mask.errors %}
+          {{ wtf.form_field(form.lan2_mask, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan2_mask.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan2_mask, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.lan2_gateway.errors %}
+          {{ wtf.form_field(form.lan2_gateway, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan2_gateway.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan2_gateway, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+            {{wtf.form_field(form.config_type, type='select', class='form-control form-control-sm')}}
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="form-group col-md-2">
+          {% if form.bgp_asn.errors %}
+          {{ wtf.form_field(form.bgp_asn, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.bgp_asn.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+            {{ wtf.form_field(form.bgp_asn, class='form-control form-control-sm') }}
+          {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+          {{ wtf.form_field(form.redis_bgp, type="checkbox", class='form-control form-control-sm') }}
+          {{ wtf.form_field(form.redis_static, type="checkbox", class='form-control form-control-sm') }}
+          {{ wtf.form_field(form.redis_ospf, type="checkbox", class='form-control form-control-sm') }}
+        </div>
+        <div class="form-group col-md-2">
+          {% if form.bgp_lan_asn.errors %}
+          {{ wtf.form_field(form.bgp_lan_asn, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.bgp_lan_asn.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+            {{ wtf.form_field(form.bgp_lan_asn, class='form-control form-control-sm') }}
+          {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+          {% if form.bgp_lan_peer.errors %}
+          {{ wtf.form_field(form.bgp_lan_peer, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.bgp_lan_peer.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+            {{ wtf.form_field(form.bgp_lan_peer, class='form-control form-control-sm') }}
+          {% endif %}
+        </div>
+        <div class="form-group col-md-2">
+          {{ wtf.form_field(form.setup, type='radio', class='form-control-sm') }}
+        </div>
+        <div class="form-group col-md-2">
+          {{ wtf.form_field(form.isp_type, type='radio', class='form-control-sm') }}
+        </div>
+
+      </div>
+
+    <div class="row">
+      <div class="form-group col-md-3">
+        {% if form.snmp_user.errors %}
+          {{ wtf.form_field(form.snmp_user, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.snmp_user.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.snmp_user, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.snmp_community.errors %}
+          {{ wtf.form_field(form.snmp_community, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.snmp_community.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.snmp_community, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.snmp_auth_pass.errors %}
+          {{ wtf.form_field(form.snmp_auth_pass, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.snmp_auth_pass.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.snmp_auth_pass, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-3">
+        {% if form.snmp_priv_pass.errors %}
+          {{ wtf.form_field(form.snmp_priv_pass, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.snmp_priv_pass.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.snmp_priv_pass, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        {% if form.lan3_ip.errors %}
+          {{ wtf.form_field(form.lan3_ip, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan3_ip.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan3_ip, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.lan3_mask.errors %}
+          {{ wtf.form_field(form.lan3_mask, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan3_mask.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan3_mask, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.lan3_gateway.errors %}
+          {{ wtf.form_field(form.lan3_gateway, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan3_gateway.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan3_gateway, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        {% if form.lan4_ip.errors %}
+          {{ wtf.form_field(form.lan4_ip, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan4_ip.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan4_ip, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.lan4_mask.errors %}
+          {{ wtf.form_field(form.lan4_mask, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan4_mask.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan4_mask, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.lan4_gateway.errors %}
+          {{ wtf.form_field(form.lan4_gateway, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.lan4_gateway.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.lan4_gateway, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        {% if form.mgmt_ip.errors %}
+          {{ wtf.form_field(form.mgmt_ip, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.mgmt_ip.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.mgmt_ip, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.mgmt_mask.errors %}
+          {{ wtf.form_field(form.mgmt_mask, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.mgmt_mask.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.mgmt_mask, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+      <div class="form-group col-md-4">
+        {% if form.mgmt_gateway.errors %}
+          {{ wtf.form_field(form.mgmt_gateway, class="form-control is-invalid form-control-sm") }}
+          <div class="invalid-feedback">
+              {% for error in form.mgmt_gateway.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ wtf.form_field(form.mgmt_gateway, class='form-control form-control-sm') }}
+      {% endif %}
+      </div>
+    </div>
+
+      <div>
+    {% if message %}
+          <div class="alert alert-success">{{message}}</div>
+    {% endif %}
+        <div class="input-wrapper">
+          <div>VLANs:<br/><p style="color:grey;font-size:13px;"><em>(Format:- 'vlan-id:IPAddress/CIDR' example-: 10:192.168.10.1/24)</em></p>
+            <input type="text" name="field[]" value=""/>
+            <a href="javascript:void(0);" class="add-input" title="Add input"><img src="https://img.icons8.com/external-tanah-basah-detailed-outline-tanah-basah/344/external-plus-user-interface-tanah-basah-detailed-outline-tanah-basah.png" height="30" width="30"/></a>
+            </div>
+        </div>
+
+  </div>
+      <style>
+.input-wrapper div {
+    margin-bottom: 10px;
+}
+.remove-input {
+    margin-top: 10px;
+    margin-left: 15px;
+    vertical-align: text-bottom;
+}
+.add-input {
+    margin-top: 10px;
+    margin-left: 10px;
+    vertical-align: text-bottom;
+}
+footer {
+  text-align: center;
+  padding: 3px;
+  background-image: linear-gradient(to right,#643bba,#00afaa);
+  color: white;
+}
+header {
+  text-align: center;
+  padding: 3px;
+  background-image: linear-gradient(to right,#643bba,#00afaa);
+  color: white;
+}
+.mainlogo {
+    margin-left: -1200px;
+	width: 150px;
+	height: 150px;
+	margin-top: -50px;
+	margin-bottom: -110px;
+}
+</style>
+<script>
+$(document).ready(function(){
+    var max_input_fields = 10;
+    var add_input = $('.add-input');
+    var input_wrapper = $('.input-wrapper');
+    var new_input = '<div><input type="text" name="field[]" value=""/><a href="javascript:void(0);" class="remove-input" title="Remove input"><img src="https://img.icons8.com/ios/344/minus.png" height="30" width="30"/></a></div>';
+    var add_input_count = 1;
+    $(add_input).click(function(){
+        if(add_input_count < max_input_fields){
+            add_input_count++;
+            $(input_wrapper).append(new_input);
+        }
+    });
+    $(input_wrapper).on('click', '.remove-input', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove();
+        add_input_count--;
+    });
+});
+</script>
+
+
+    <br>
+       <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  </form>
+
+
+<hr>
+
+  <p>Test comment.</p>
+  <p><a href="#">Hyperlink to share</a></p>
+</div>
+    <footer>
+  <p>Creater : Rishabh Parihar<br>
+  <a style="color:black;" href="mailto:nsi.all@aryaka.com">Powered by NSI</a></p>
+</footer>
+{% endblock %}
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
